@@ -40,7 +40,7 @@
 
 <br>
 
-## :dart: Acerca ##
+## :dart: Acerca 
 
 Esta sencilla aplicación web te ayuda a ordenar y clasificar de manera conveniente los archivos pdf y xml de tus comprobantes Fiscales digitales por internet CFDI en la version 4.0.
 
@@ -49,13 +49,14 @@ Esta sencilla aplicación web te ayuda a ordenar y clasificar de manera convenie
 ![PantallaPrincipal](./Pantalla_Busqueda.png "Pantalla Principal")
 
 
-## :sparkles: Carácteristicas ##
+## :sparkles: Carácteristicas
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
+:heavy_check_mark: Organización de archivos xml y pdf de los CFDI  
+:heavy_check_mark: Búsqueda por fecha de procesamiento
+:heavy_check_mark: Búsqueda por fecha de comprobante
+:heavy_check_mark: Búsqueda por nombre de emisor
 
-## :rocket: Tecnologías ##
+## :rocket: Tecnologías 
 
 The following tools were used in this project:
 
@@ -64,12 +65,12 @@ The following tools were used in this project:
 - [MySQL](https://www.mysql.com/)
 - [Thymeleaf](https://www.thymeleaf.org/)
 
-## :white_check_mark: Requerimientos ##
+## :white_check_mark: Requerimientos 
 
 - Java 8.0.352
 - Mysql 8.4
 
-## :checkered_flag: Inicio ##
+## :checkered_flag: Inicio
 
 ```bash
 # Clone this project
@@ -79,7 +80,7 @@ $ git clone https://github.com/jlpm-mex/cfdiadmon
 # The server will initialize in the <http://localhost:3000>
 ```
 
-## :memo: Licencia ##
+## :memo: Licencia 
 
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 

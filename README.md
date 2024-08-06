@@ -30,7 +30,7 @@
 
 <p align="center">
   <a href="#dart-about">Acerca</a> &#xa0; | &#xa0; 
-  <a href="#sparkles-carácteristicas">Caracteriticas</a> &#xa0; | &#xa0;
+  <a href="#sparkles-características">Características</a> &#xa0; | &#xa0;
   <a href="#rocket-tecnologías">Tecnologias</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requerimientos">Requerimientos</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-inicio">Inicio</a> &#xa0; | &#xa0;
@@ -49,7 +49,7 @@ Esta sencilla aplicación web te ayuda a ordenar y clasificar de manera convenie
 ![PantallaPrincipal](./Pantalla_Busqueda.png "Pantalla Principal")
 
 
-## :sparkles: Carácteristicas
+## :sparkles: Características
 
 :heavy_check_mark: Organización de archivos xml y pdf de los CFDI  
 :heavy_check_mark: Búsqueda por fecha de procesamiento

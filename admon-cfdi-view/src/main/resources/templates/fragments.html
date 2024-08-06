@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<div th:fragment="menu">
+			<nav class="navbar navbar-light navbar-expand-lg mb-3"
+				style="background-color: #e3f2fd;">
+				<a id="navIndex" class="navbar-brand" href="/"><i class="fas fa-tasks mr-2"></i>Admon CFDI's</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+		
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+					    <li>
+					    	<a id="navAdmonCfdiProv" class="nav-link" href="/" role="button">
+					    		Inicio
+					    	</a>
+					    </li>
+					</ul>
+				</div>
+			</nav>
+			<script src="/js/fragments.js"/></script>
+		</div>
+	</body>
+</html>

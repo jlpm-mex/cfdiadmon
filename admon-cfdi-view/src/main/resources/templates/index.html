@@ -1,0 +1,266 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Administracion de CFDI's</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/webjars/jquery-ui/jquery-ui.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+	<script src="/webjars/momentjs/moment.js"></script>
+	<script type="module" src="/js/AdmonCfdiProv.js" />
+	</script>
+	<link rel="stylesheet" href="/css/admoncfdiprov.css">
+
+</head>
+
+<body>
+	<div class="container-fluid mainContainer">
+		<div th:replace="fragments :: menu"></div>
+		<div class="container-fluid subContainer">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="procesar-tab" data-toggle="tab" href="#procesar" role="tab"
+						aria-controls="procesar" aria-selected="true">Procesar</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="ubicar-tab" data-toggle="tab" href="#ubicar" role="tab"
+						aria-controls="ubicar" aria-selected="false">Ubicar</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="procesar" role="tabpanel" aria-labelledby="procesar-tab">
+					<div class="row my-2 resContainer" id="resultados">
+						<div class="container-fluid subContainer">
+							<div class="row">
+								<div class="col-md text-center my-2">
+									<h3>Procesamiento de CFDI's 4.0</h3>
+								</div>
+							</div>
+							<div class="row">
+								<button type="submit" class="btn btn-primary m-auto" id="cmdProcesar">
+									<i class="fas fa-cog mr-2"></i>Procesar
+								</button>
+							</div>
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<h4 class="text-success invisible">Procesados</h4>
+								</div>
+							</div>
+							<div class="row resultsContainer">
+								<div class="col-md-12 bg-white rounded table-responsive datacontainer"
+									id="processedContainer"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<h4 class="text-warning invisible">No Procesados</h4>
+								</div>
+							</div>
+							<div class="row resultsContainer">
+								<div class="col-md-12 bg-white rounded table-responsive datacontainer"
+									id="unprocessedContainer"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="ubicar" role="tabpanel" aria-labelledby="ubicar-tab">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md text-center my-2">
+								<h3>Busqueda de Facturas</h3>
+							</div>
+						</div>
+						<div class="row" id="searchOptions">
+							<div class="col-md text-center">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions"
+										id="inlineRadio1" value="1">
+									<i class="far fa-calendar-alt mx-1"></i> <label class="form-check-label"
+										for="inlineRadio1">Por fecha
+										Sistema</label>
+								</div>
+							</div>
+							<div class="col-md text-center">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions"
+										id="inlineRadio2" value="2">
+									<i class="fas fa-calendar-alt mx-1"></i> <label class="form-check-label"
+										for="inlineRadio2">Por fecha
+										Comprobante</label>
+								</div>
+							</div>
+							<div class="col-md text-center">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions"
+										id="inlineRadio3" value="3">
+									<i class="far fa-handshake mx-1"></i> <label class="form-check-label"
+										for="inlineRadio2">Por
+										Proveedor</label>
+								</div>
+							</div>
+						</div>
+						<div class="row d-none filters-menu" id="dateFilters">
+							<div class="col-md my-2">
+								<label>Fecha Inicial:</label>
+								<div>
+									<input type="date" class="date  form-control" data-updated="false"
+										id="txtStartDate">
+								</div>
+							</div>
+							<div class="col-md my-2">
+								<label>Fecha Final:</label>
+								<div>
+									<input type="date" class="date  form-control" data-updated="false" id="txtEndDate">
+								</div>
+							</div>
+						</div>
+						<div class="row text-center d-none filters-menu" id="proveedorFilters">
+							<div class="col-md my-2">
+								<label>Año:</label>
+								<div id="dropdownContainer" class="dropdown">
+									<a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+										id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false"> Seleccione: </a>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md my-2">
+								<label for="proveedor">Proveedor:</label> <select id="proveedor"
+									class="selectpicker show-tick" title="Seleccione:" data-style="btn-info"
+									data-width="100%" name="proveedor" data-live-search="true"
+									data-none-results-text="Sin resultados">
+									<option th:each="proveedor : ${proveedoresList}" th:value="${proveedor.fcnombre}"
+										th:attr="data-fcrfc=${proveedor.fcRfc}" th:text="${proveedor.fcnombre}">
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="row my-2">
+							<button type="submit" class="btn btn-primary m-auto" id="cmdBuscar">
+								<i class="fas fa-search mr-2"></i>Buscar
+							</button>
+						</div>
+						<div class="container d-none mb-2" id="resultsContainer">
+							<h2 class="text-success">Encontrados:</h2>
+
+							<div id="accordion" class="pb-3">
+								<div class="card d-none" id="cardCfdis">
+									<div class="card-header">
+										<a class="card-link" data-toggle="collapse" href="#collapseOne"> CFDI´s <span
+												class="text-light bg-warning" id="cfdiSize"></span></a>
+									</div>
+									<div id="collapseOne" class="collapse show">
+										<div class="card-body">
+											<table class="w-100  table-striped table-hover" id="tblcfdis">
+												<thead>
+													<tr>
+														<th class="text-center">
+															F. Docto
+														</th>
+														<th class="text-center">
+															Serie
+														</th>
+														<th class="text-center">
+															Folio
+														</th>
+														<th class="text-center">
+															Folio Fiscal
+														</th>
+														<th class="text-center">
+															Emisor
+														</th>
+														<th class="text-center">
+															Total
+														</th>
+														<th class="text-center">
+															Uso
+														</th>
+														<th class="text-center">
+															Metodo de Pago
+														</th>
+														<th class="text-center">
+															T de Comp.
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="card d-none" id="cardComplementos">
+									<div class="card-header">
+										<a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+											Complementos de Pago <span class="text-light bg-warning"
+												id="pagoSize"></span></a>
+									</div>
+									<div id="collapseTwo" class="collapse">
+										<div class="card-body">
+											<table class="w-100  table-striped table-hover" id="tblcdp">
+												<thead>
+													<tr>
+														<th class="text-center">
+															F. Docto
+														</th>
+														<th class="text-center">
+															Serie
+														</th>
+														<th class="text-center">
+															Folio
+														</th>
+														<th class="text-center">
+															Folio Fiscal
+														</th>
+														<th class="text-center">
+															Emisor
+														</th>
+														<th class="text-center">
+															Total
+														</th>
+														<th class="text-center">
+															Uso
+														</th>
+														<th class="text-center">
+															Metodo de Pago
+														</th>
+														<th class="text-center">
+															T de Comp.
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

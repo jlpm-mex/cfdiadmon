@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.hibernate.exception.ConstraintViolationException;
@@ -158,6 +159,7 @@ public class CfdiProvManagement {
 	@Transactional(rollbackFor = Exception.class)
 	public ProcesarCfdiResponseTO procesarCfdi() throws Exception {
 		LOGGER.info("procesarCfdi");
+		LOGGER.info("path NoProcesados:{}",baseCfdiPath+unprocessedPath);
 		int processedFiles  = 0;
 		int totalFiles 		= 0;
 
@@ -269,6 +271,7 @@ public class CfdiProvManagement {
 	
 	public String[] buscarCfdi() throws AdmonCfdiProvException {
 		LOGGER.info("buscarCfdi");
+		LOGGER.info("path NoProcesados: {}",baseCfdiPath+unprocessedPath);
 		File selectedFile = new File(Paths.get(baseCfdiPath+unprocessedPath).toString());
 		
 		String[]files = selectedFile.list(new FilenameFilter() {
@@ -366,7 +369,8 @@ public class CfdiProvManagement {
 		return comprobanteVO;
 	}
 	
-	private void renombrarArchivos(File oldXML, File oldPDF, ComprobanteVO comprobanteVO) throws AdmonCfdiProvException {
+	private void renombrarArchivos(File oldXML, File oldPDF, ComprobanteVO comprobanteVO) 
+			throws AdmonCfdiProvException {
 		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(comprobanteVO.getFdFechaComprobante());
@@ -386,20 +390,32 @@ public class CfdiProvManagement {
 		String xmlName 		= sbNombre.toString()+".xml";
 		String pdfName 		= sbNombre.toString()+".pdf";
 		
-		LOGGER.info("pathDeRenombrado: {}/{}",sbPath,sbNombre);
+		LOGGER.info("pathDeRenombrado: {}/{}",baseCfdiPath+processedPath+"/"+sbPath,sbNombre);
 		
 		File newXML = new File(baseCfdiPath+processedPath+"/"+sbPath+"/"+xmlName);
 		File newPDF = new File(baseCfdiPath+processedPath+"/"+sbPath+"/"+pdfName);	
-		File copyOldXML = new File(baseCfdiPath+unprocessedPath+"/"+oldXML.getName());
-		File copyOldPDF = new File(baseCfdiPath+unprocessedPath+"/"+oldPDF.getName());
-		
-		if(!oldXML.renameTo(newXML) || !oldPDF.renameTo(newPDF)) {
-			LOGGER.debug("No se pudieron renombrar archivos, posiblemente este abiertos o en uso");
-			newPDF.renameTo(copyOldPDF);
-			newXML.renameTo(copyOldXML);
+		boolean wasXMLMoved = false;
+		try {
+			FileUtils.moveFile(oldXML, newXML);
+			wasXMLMoved = true;
+			FileUtils.moveFile(oldPDF, newPDF);
+		}catch(IOException e) {
+			LOGGER.debug(e.getMessage());
+			if(wasXMLMoved)
+				try {
+					LOGGER.info("el path original es: {}{}", oldXML.getPath(), oldXML.getName());
+					FileUtils.moveFile(newXML,oldXML);
+				}catch(IOException se) {
+					LOGGER.debug(se.getMessage());
+					LOGGER.info("El archivo :{}, no pudo ser regresado a su ubicación,"
+							+ " por favor regreselo manualmente. su ubicación actual es:",
+							newXML.getName(),
+							newXML.getPath());
+				}
 			throw new AdmonCfdiProvException ("Por favor válide que los archivos no este abiertos o en uso"
 					, AdmonCfdiProvException.ErrorCodes.ARCHIVOS_EN_USO.getCodigo());
 		}
+		
 	}
 	
 	private void restaurarProcesados(Map<String,ComprobanteVO> processedList) {

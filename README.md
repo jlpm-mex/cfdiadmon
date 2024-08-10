@@ -49,6 +49,19 @@ Esta sencilla aplicación web te ayuda a ordenar y clasificar de manera convenie
 ![PantallaPrincipal](./Pantalla_Busqueda.png "Pantalla Principal")
 
 
+### Instrucciones
+Proximamente ..
+
+<!--
+  1. Crear carpeta para archivos de configuración en Documentos (Puede ser cualquier nombre "admon_cfdi")
+  * ```mkdir ~/Documents/admon_cfdi```  
+  2. Accesa a la carpeta recien creada y crea dentro de esa carpeta 2 carpetas mas (conf y data)
+  * ```cd ~/Documents/admon_cfdi/```
+  * ```mkdir conf```
+  * ```mkdir data```
+  3. 
+-->
+
 ## :sparkles: Características
 
 :heavy_check_mark: Organización de archivos xml y pdf de los CFDI  
@@ -75,8 +88,6 @@ The following tools were used in this project:
 ```bash
 # Clone this project
 $ git clone https://github.com/jlpm-mex/cfdiadmon
-
-
 # The server will initialize in the <http://localhost:3000>
 ```
 

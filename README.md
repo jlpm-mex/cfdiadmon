@@ -33,7 +33,6 @@
   <a href="#sparkles-características">Características</a> &#xa0; | &#xa0;
   <a href="#rocket-tecnologías">Tecnologias</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requerimientos">Requerimientos</a> &#xa0; | &#xa0;
-  <a href="#checkered_flag-inicio">Inicio</a> &#xa0; | &#xa0;
   <a href="#memo-licencia">Licencia</a> &#xa0; | &#xa0;
   <a href="https://github.com/jlpm-mex" target="_blank">Autor</a>
 </p>
@@ -50,7 +49,26 @@ Esta sencilla aplicación web te ayuda a ordenar y clasificar de manera convenie
 
 
 ### Instrucciones
-Proximamente ..
+ 1) Clona el repositorio https://github.com/jlpm-mex/cfdiadmon_docker
+`` git clone https://github.com/jlpm-mex/cfdiadmon_docker``
+&#xa0;
+ 1) Acede a la carpeta cfdiadmon_docker
+ ```cd cfdiadmon_docker```
+&#xa0;
+ 1) Crea las carpetas CfdiRecibidos y sus subcarpetas NoProcesados y Procesados
+ ```mkdir -p CfdiRecibidos/NoProcesados CfdiRecibidos/Procesados```
+&#xa0;
+ 1) Levanta los contenedores
+ ```sudo docker compose up -d```
+&#xa0;
+ 1) Abre un navegador e introduce la ip de la máquina donde levantaste los contenedores, o apunta asi mismo en caso de ser la misma máquina como en el ejemplo
+ ```http://localhost:9087```
+&#xa0;
+1) Copia y pega tus archivos PDF y XML dentro de la carpeta NoProcesados, la cual se encuentra dentro de la carpeta CfdiRecibidos
+
+  > :warning: **Warning:** Los Archivos PDF y XML deben llamarse exactamente de la misma manera para que el sistema los detecte.
+  &#xa0;
+7) Regresa al navegador y presiona el boton procesar. 
 
 <!--
   1. Crear carpeta para archivos de configuración en Documentos (Puede ser cualquier nombre "admon_cfdi")
@@ -83,17 +101,9 @@ The following tools were used in this project:
 - Java 8.0.352
 - Mysql 8.4
 
-## :checkered_flag: Inicio
-
-```bash
-# Clone this project
-$ git clone https://github.com/jlpm-mex/cfdiadmon
-# The server will initialize in the <http://localhost:3000>
-```
-
 ## :memo: Licencia 
 
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
+Este proyecto se encuentra bajo licencia del MIT. Para mas detalles, vea el archivo de  [LICENCIA](LICENSE.md).
 
 
 Made with :heart: by <a href="https://github.com/jlpm-mex" target="_blank">jlpm-mex</a>

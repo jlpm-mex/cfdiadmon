@@ -49,25 +49,30 @@ Esta sencilla aplicación web te ayuda a ordenar y clasificar de manera convenie
 
 
 ### Instrucciones
- 1) Clona el repositorio https://github.com/jlpm-mex/cfdiadmon_docker. &#xa0;
-`` git clone https://github.com/jlpm-mex/cfdiadmon_docker``
-&#xa0;
- 1) Acede a la carpeta cfdiadmon_docker
- ```cd cfdiadmon_docker```
-&#xa0;
- 1) Crea las carpetas CfdiRecibidos y sus subcarpetas NoProcesados y Procesados. &#xa0;
- ```mkdir -p CfdiRecibidos/NoProcesados CfdiRecibidos/Procesados```
-&#xa0;
- 1) Levanta los contenedores. &#xa0;
- ```sudo docker compose up -d```
-&#xa0;
- 1) Abre un navegador e introduce la ip de la máquina donde levantaste los contenedores, o apunta asi mismo en caso de ser la misma máquina como en el ejemplo. &#xa0;
- ```http://localhost:9087```
-&#xa0;
-1) Copia y pega tus archivos PDF y XML dentro de la carpeta **NoProcesados**, la cual se encuentra dentro de la carpeta **CfdiRecibidos**. &#xa0;
+ 1) Clona el repositorio https://github.com/jlpm-mex/cfdiadmon_docker.  
+```
+  git clone https://github.com/jlpm-mex/cfdiadmon_docker
+```
+ 2) Acede a la carpeta cfdiadmon_docker.  
+ ```
+  cd cfdiadmon_docker
+```
+ 3) Crea las carpetas CfdiRecibidos y sus subcarpetas NoProcesados y Procesados.   
+ ``` 
+  mkdir -p CfdiRecibidos/NoProcesados CfdiRecibidos/Procesados
+  ```
+ 4) Levanta los contenedores.  
+```
+sudo docker compose up -d
+```
+ 5) Abre un navegador e introduce la ip de la máquina donde levantaste los contenedores, o apunta asi mismo en caso de ser la misma máquina como en el ejemplo.  
+ ```
+ http://localhost:9087
+ ```
+6) Copia y pega tus archivos PDF y XML dentro de la carpeta **NoProcesados**, la cual se encuentra dentro de la carpeta **CfdiRecibidos**.  
 
   > :warning: **Warning:** Los Archivos PDF y XML deben llamarse exactamente de la misma manera para que el sistema los detecte.
-  &#xa0;
+
 7) Regresa al navegador y presiona el boton procesar. 
 
 <!--

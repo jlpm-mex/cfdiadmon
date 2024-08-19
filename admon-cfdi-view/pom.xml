@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>net.pino_moreno</groupId>
 	<artifactId>admon-cfdi-view</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>admon-cfdi-view</name>
 	<description>Administracion de CFDI 4.0</description>
 
@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>net.ellapiz</groupId>
 			<artifactId>CommonVO</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.3-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>

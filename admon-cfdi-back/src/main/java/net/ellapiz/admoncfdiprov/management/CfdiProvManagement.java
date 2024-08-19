@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import net.ellapiz.admoncfdiprov.exception.AdmonCfdiProvException;
 import net.ellapiz.admoncfdiprov.exception.AdmonCfdiProvException.ErrorCodes;
@@ -598,4 +599,19 @@ public class CfdiProvManagement {
 		
 		return response;
 	}
+
+	public void uploadFile(MultipartFile[] files) {
+		LOGGER.info("uploadFile()");
+		try {
+	        for (MultipartFile multipartFile : files) {
+	            File tempFile = new File(multipartFile.getOriginalFilename());
+	            String originalFileName = tempFile.getName();
+	            File file = new File(baseCfdiPath+"/"+unprocessedPath+"/"+originalFileName);
+	            multipartFile.transferTo(file);
+	        }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
 }

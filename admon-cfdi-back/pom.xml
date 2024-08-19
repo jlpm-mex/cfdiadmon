@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>net.pino_moreno</groupId>
 	<artifactId>admon-cfdi-back</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>admon-cfdi-back</name>
 	<description>Administración de CFDIs back</description>
 

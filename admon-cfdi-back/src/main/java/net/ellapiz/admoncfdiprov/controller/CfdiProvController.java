@@ -7,9 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import net.ellapiz.admoncfdiprov.management.CfdiProvManagement;
 import net.ellapiz.admoncfdiprov.to.FindCfdiProvRequestTO;
@@ -26,7 +29,7 @@ import net.ellapiz.preventa.vo.MessageVO;
 public class CfdiProvController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CfdiProvController.class);
-	
+		
 	@Autowired
 	private CfdiProvManagement management;
 	
@@ -150,7 +153,23 @@ public class CfdiProvController {
 		return messageVO;
 		
 	}
-	 
+	
+	@CrossOrigin(origins = "${upload.files.cross.origin}")
+	@PostMapping("/uploadfiles") 
+    public @ResponseBody MessageVO uploadMultipartFile(@RequestParam("files") MultipartFile[] files) {
+		LOGGER.info("uploadMultipartFile()");
+		MessageVO messageVO = new MessageVO();
+		HeaderVO headerVO = new HeaderVO();
+		try {
+			management.uploadFile(files);
+			headerVO.setMessageStatus(HeaderVO.SUCCESS);
+		}catch(Exception e) {
+			LOGGER.error(e.getMessage());
+			addError(messageVO, e);
+		}
+        
+		return messageVO;
+    }
 	
 	private void addError(MessageVO msg,Exception e){
 		ArrayList<ErrorVO> errors = new ArrayList<>();

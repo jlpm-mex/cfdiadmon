@@ -7,9 +7,6 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="/webjars/jquery-ui/jquery-ui.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -24,6 +21,7 @@
 	<script src="/webjars/momentjs/moment.js"></script>
 	<script type="module" src="/js/AdmonCfdiProv.js" />
 	</script>
+	<script src="https://kit.fontawesome.com/26f3598663.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/admoncfdiprov.css">
 
 </head>
@@ -48,13 +46,62 @@
 						<div class="container-fluid subContainer">
 							<div class="row">
 								<div class="col-md text-center my-2">
-									<h3>Procesamiento de CFDI's 4.0</h3>
+									<h1>Procesamiento de CFDI's 4.0</h1>
 								</div>
 							</div>
 							<div class="row">
-								<button type="submit" class="btn btn-primary m-auto" id="cmdProcesar">
-									<i class="fas fa-cog mr-2"></i>Procesar
-								</button>
+								<div class="col text-center">
+									<!--								    <form action="http://localhost:9081/uploadfiles" method="POST" enctype="multipart/form-data">-->
+									<h4>Arrastre y suelte sus archivos</h4>
+									<div style="width: 400px;
+																				  height: 200px;
+																				  margin: 20px auto;
+																				  text-align: center;
+																				  line-height: 200px;
+																				  border: 2px dashed #ccc;
+																				  cursor: pointer;" id="drop-area">
+										Suelte aquí sus archivos (+)
+									</div>
+									<div>
+										<div style="display: none;">
+											<input id="fileInput" type="file" name="files" accept=".pdf,.xml" multiple
+												data-max-file-size="3MB">
+											<!--								    </form>-->
+										</div>
+
+									</div>
+								</div>
+								<div class="col">
+									<h4 class="lblMessage text-center"></h4>
+									<div style="overflow-Y: scroll;
+											    max-height: 220px;
+											    margin: auto;
+											    width: fit-content;">
+										<div class="fileContainer" style="display: flex;
+																	    max-width: 300px;
+																	    flex-direction: column;">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="alert alert-warning" role="alert">
+									 	Máximo total 5MB, Máximo por archivo 3MB
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col text-right">
+									<button type="submit" class="btn btn-primary m-auto" id="cmdUpload">
+										<i class="fa-solid fa-cloud-arrow-up mr-2"></i>Subir
+									</button>
+								</div>
+								<div class="col">
+									<button type="submit" class="btn btn-primary m-auto text-left" id="cmdProcesar">
+										<i class="fas fa-cog mr-2"></i>Procesar
+									</button>
+								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12 text-center">
@@ -87,28 +134,24 @@
 						<div class="row" id="searchOptions">
 							<div class="col-md text-center">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions"
-										id="inlineRadio1" value="1">
-									<i class="far fa-calendar-alt mx-1"></i> <label class="form-check-label"
-										for="inlineRadio1">Por fecha
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
+									<i class="far fa-calendar-alt mx-1"></i> <label class="form-check-label" for="inlineRadio1">Por
+										fecha
 										Sistema</label>
 								</div>
 							</div>
 							<div class="col-md text-center">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions"
-										id="inlineRadio2" value="2">
-									<i class="fas fa-calendar-alt mx-1"></i> <label class="form-check-label"
-										for="inlineRadio2">Por fecha
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
+									<i class="fas fa-calendar-alt mx-1"></i> <label class="form-check-label" for="inlineRadio2">Por
+										fecha
 										Comprobante</label>
 								</div>
 							</div>
 							<div class="col-md text-center">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions"
-										id="inlineRadio3" value="3">
-									<i class="far fa-handshake mx-1"></i> <label class="form-check-label"
-										for="inlineRadio2">Por
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
+									<i class="far fa-handshake mx-1"></i> <label class="form-check-label" for="inlineRadio2">Por
 										Proveedor</label>
 								</div>
 							</div>
@@ -117,8 +160,7 @@
 							<div class="col-md my-2">
 								<label>Fecha Inicial:</label>
 								<div>
-									<input type="date" class="date  form-control" data-updated="false"
-										id="txtStartDate">
+									<input type="date" class="date  form-control" data-updated="false" id="txtStartDate">
 								</div>
 							</div>
 							<div class="col-md my-2">
@@ -132,18 +174,16 @@
 							<div class="col-md my-2">
 								<label>Año:</label>
 								<div id="dropdownContainer" class="dropdown">
-									<a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-										id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false"> Seleccione: </a>
+									<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Seleccione: </a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-
+				
 									</div>
 								</div>
 							</div>
 							<div class="col-md my-2">
-								<label for="proveedor">Proveedor:</label> <select id="proveedor"
-									class="selectpicker show-tick" title="Seleccione:" data-style="btn-info"
-									data-width="100%" name="proveedor" data-live-search="true"
+								<label for="proveedor">Proveedor:</label> <select id="proveedor" class="selectpicker show-tick"
+									title="Seleccione:" data-style="btn-info" data-width="100%" name="proveedor" data-live-search="true"
 									data-none-results-text="Sin resultados">
 									<option th:each="proveedor : ${proveedoresList}" th:value="${proveedor.fcnombre}"
 										th:attr="data-fcrfc=${proveedor.fcRfc}" th:text="${proveedor.fcnombre}">
@@ -158,12 +198,12 @@
 						</div>
 						<div class="container d-none mb-2" id="resultsContainer">
 							<h2 class="text-success">Encontrados:</h2>
-
+				
 							<div id="accordion" class="pb-3">
 								<div class="card d-none" id="cardCfdis">
 									<div class="card-header">
-										<a class="card-link" data-toggle="collapse" href="#collapseOne"> CFDI´s <span
-												class="text-light bg-warning" id="cfdiSize"></span></a>
+										<a class="card-link" data-toggle="collapse" href="#collapseOne">
+											CFDI´s <span class="text-light bg-warning" id="cfdiSize"></span></a>
 									</div>
 									<div id="collapseOne" class="collapse show">
 										<div class="card-body">
@@ -200,7 +240,7 @@
 													</tr>
 												</thead>
 												<tbody>
-
+				
 												</tbody>
 											</table>
 										</div>
@@ -209,8 +249,7 @@
 								<div class="card d-none" id="cardComplementos">
 									<div class="card-header">
 										<a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-											Complementos de Pago <span class="text-light bg-warning"
-												id="pagoSize"></span></a>
+											Complementos de Pago <span class="text-light bg-warning" id="pagoSize"></span></a>
 									</div>
 									<div id="collapseTwo" class="collapse">
 										<div class="card-body">
@@ -247,20 +286,18 @@
 													</tr>
 												</thead>
 												<tbody>
-
+				
 												</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
 							</div>
-
+				
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 </body>
 
 </html>

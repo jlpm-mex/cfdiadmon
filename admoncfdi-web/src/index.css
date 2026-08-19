@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@layer base {
+  h1 {
+    font-family:'Space Grotesk', sans-serif;
+    font-size: var(--text-2xl);
+  }
+  h2 {
+    font-family:'Space Grotesk', sans-serif;
+    font-size: var(--text-xl);
+  }
+  h3 {
+    font-family:'Space Grotesk', sans-serif;
+    font-size: var(--text-lg);
+  }
+  a {
+    color: var(--color-blue-600);
+    text-decoration-line: underline;
+  }
+}

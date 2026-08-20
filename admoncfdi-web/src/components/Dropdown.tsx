@@ -44,7 +44,7 @@ const Dropdown = ({ label, data, value, onSelect, placeholder = "Seleccionar" }:
         const term = searchTerm.toLowerCase().trim();
         return options.filter(opt => opt.label.toLowerCase().includes(term));
     },
-    [options, searchTerm]);
+        [options, searchTerm]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -83,7 +83,7 @@ const Dropdown = ({ label, data, value, onSelect, placeholder = "Seleccionar" }:
                     rounded-lg 
                     border 
                     border-white/10 
-                    bg-white/[0.04] 
+                    bg-white/4 
                     px-3 
                     py-2.5 
                     text-sm 
@@ -145,16 +145,16 @@ const Dropdown = ({ label, data, value, onSelect, placeholder = "Seleccionar" }:
                             text-left 
                             rounded-lg border 
                             border-white/10 
-                            bg-white/[0.04] 
+                            bg-white/4 
                             px-3 
                             py-2.5 
                             text-sm 
                             text-slate-100 
                             outline-none 
                             focus:border-teal-400 
-                            m-auto" 
-                            placeholder='Filtrar'
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            m-auto"
+                                placeholder='Filtrar'
+                                onChange={(e) => setSearchTerm(e.target.value)}
                             />
                             {options.length === 0 ? (
                                 <div className="px-4 py-2 text-sm text-slate-400 italic">No hay opciones</div>
@@ -164,11 +164,10 @@ const Dropdown = ({ label, data, value, onSelect, placeholder = "Seleccionar" }:
                                         key={`${opt.value}-${i}`}
                                         type="button"
                                         onClick={() => handleSelectOption(opt.value)}
-                                        className={`block w-full text-left px-4 py-2 text-sm transition-colors ${
-                                            String(opt.value) === String(value)
+                                        className={`block w-full text-left px-4 py-2 text-sm transition-colors ${String(opt.value) === String(value)
                                                 ? "bg-teal-400/20 text-teal-300 font-semibold"
-                                                : "text-slate-200 hover:bg-white/[0.08]"
-                                        }`}
+                                                : "text-slate-200 hover:bg-white/8"
+                                            }`}
                                         role="menuitem"
                                     >
                                         {opt.label}

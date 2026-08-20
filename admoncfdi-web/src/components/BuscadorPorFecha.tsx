@@ -17,7 +17,7 @@ const BuscadorPorFecha = () =>{
                         type="date"
                         value={""}
                         onChange={(e) => e.target.value}
-                        className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm text-slate-100 outline-none focus:border-teal-400 [&::-webkit-calendar-picker-indicator]:invert"
+                        className="rounded-lg border border-white/10 bg-white/4 px-3 py-2.5 text-sm text-slate-100 outline-none focus:border-teal-400 [&::-webkit-calendar-picker-indicator]:invert"
                     />
                 </div>
 
@@ -31,7 +31,7 @@ const BuscadorPorFecha = () =>{
                         type="date"
                         value={""}
                         onChange={(e) => e.target.value}
-                        className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm text-slate-100 outline-none focus:border-teal-400 [&::-webkit-calendar-picker-indicator]:invert"
+                        className="rounded-lg border border-white/10 bg-white/4 px-3 py-2.5 text-sm text-slate-100 outline-none focus:border-teal-400 [&::-webkit-calendar-picker-indicator]:invert"
                     />
                 </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import PanelProcesar from '../components/PanelProcesar';
 import PanelBuscar from '../components/PanelBuscar';
 
@@ -29,7 +29,7 @@ const CfdiPage = () => {
                         className={`relative pb-3 font-semibold text-[14.5px] transition-colors
               ${pestana === "procesar" ? "text-slate-100" : "text-slate-400 hover:text-slate-200"}`}
                     >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="mr-1.5 inline-block h-[15px] w-[15px] -translate-y-px">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="mr-1.5 inline-block h-3.75 w-3.75 -translate-y-px">
                             <path d="M12 3v12" />
                             <path d="m7 10 5 5 5-5" />
                             <path d="M5 21h14" />
@@ -48,7 +48,7 @@ const CfdiPage = () => {
                         className={`relative pb-3 font-semibold text-[14.5px] transition-colors
               ${pestana === "buscar" ? "text-slate-100" : "text-slate-400 hover:text-slate-200"}`}
                     >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="mr-1.5 inline-block h-[15px] w-[15px] -translate-y-px">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="mr-1.5 inline-block h-3.75 w-3.75 -translate-y-px">
                             <circle cx="11" cy="11" r="7" />
                             <path d="m21 21-4.3-4.3" />
                         </svg>

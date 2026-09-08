@@ -121,7 +121,7 @@ const Dropdown = ({ label, data, value, onSelect, placeholder = "Seleccionar" }:
                     <div
                         className="absolute 
                         right-0 
-                        z-10 
+                        z-20 
                         mt-2 
                         max-h-60 
                         overflow-y-auto 

@@ -1,5 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { uploadDocs, getPendingDocs, processDocs, findDocumentsBySupplier } from "../api/documentService";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { uploadDocs, getPendingDocs, processDocs, findDocumentsBySupplier, findDocumentsByDate } from "../api/documentService";
+import type { TipoDeBuscador } from "../../types";
 
 export function useUploadDocs(){
   const queryClient = useQueryClient();
@@ -43,13 +44,38 @@ export const useProcessDocs = () => {
   })
 }
 
-export const useGetDocsBySupplier = (rfc: string, year: number, options?: { enabled?: boolean }) => {
+export const useGetDocsBySupplier = (
+  rfc: string, 
+  year: number, 
+  page: number = 0,
+  size: number = 10,
+  options?: { enabled?: boolean }
+) => {
   return useQuery({
-    queryKey: ['docs-by-supplier'],
-    queryFn: () => findDocumentsBySupplier(rfc, year),
+    queryKey: ['docs-by-supplier', rfc, year, page, size],
+    queryFn: () => findDocumentsBySupplier(rfc, year, page, size),
     enabled: options?.enabled ?? true,
+    placeholderData: keepPreviousData,
     refetchOnWindowFocus: false, 
     staleTime: 1000 * 60 * 5,
-  })
-}
+  });
+};
+
+export const useGetDocsByDate = (
+  startDate: Date, 
+  endDate: Date, 
+  tipoDeBuscador: TipoDeBuscador, 
+  page: number = 0,
+  size: number = 10,
+  options?: { enabled?: boolean }
+) => {
+  return useQuery({
+    queryKey: ['docs-by-date', startDate.toISOString(), endDate.toISOString(), tipoDeBuscador, page, size],
+    queryFn: () => findDocumentsByDate(startDate, endDate, tipoDeBuscador, page, size),
+    enabled: options?.enabled ?? true,
+    placeholderData: keepPreviousData,
+    refetchOnWindowFocus: false, 
+    staleTime: 1000 * 60 * 5,
+  });
+};
 

@@ -1,7 +1,9 @@
 package net.ellapiz.admoncfdiprov.exception;
 
-public class AdmonCfdiProvException extends Exception {
+
+public class AdmonCfdiProvException extends RuntimeException {
 	
+	private static final long serialVersionUID = 1L;
 	private int errorCode;
 	
 	public AdmonCfdiProvException(String message, int errorCode) {
@@ -22,7 +24,10 @@ public class AdmonCfdiProvException extends Exception {
 		ARCHIVOS_NO_CORRESPONDEN(2),
 		ARCHIVOS_EN_USO(3),
 		TIPO_DE_COMPROBANTE_NO_RECONOCIDO(4),
-		XML_NO_SE_PUEDE_PARSEAR(5);
+		XML_NO_SE_PUEDE_PARSEAR(5),
+		PROVEEDOR_EXISTENTE(6),
+		ERROR_DE_PROCESAMIENTO(7),
+		ARCHIVO_VACIO(8);
 		
 		private int codigo;
 		

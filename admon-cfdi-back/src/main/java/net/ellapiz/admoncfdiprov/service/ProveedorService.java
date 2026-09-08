@@ -6,10 +6,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import net.ellapiz.admoncfdiprov.dao.ProveedorRepository;
-import net.ellapiz.proveedor.vo.ProveedorVO;
+import net.ellapiz.admoncfdiprov.vo.EmisorVO;
+
 
 @Component
 public class ProveedorService {
@@ -18,21 +20,21 @@ public class ProveedorService {
 	@Autowired
 	private ProveedorRepository proveedorRepository;
 	
-	public ProveedorVO guardarProveedor(ProveedorVO proveedorVO) throws SQLException{
+	public EmisorVO guardarProveedor(EmisorVO proveedorVO) throws SQLException{
 		return
 				proveedorRepository.save(proveedorVO);
 	}
 	
-	public ProveedorVO buscarPorRfc(String rfc) {
+	public EmisorVO buscarPorRfc(String rfc) {
 		return
 				proveedorRepository.buscarPorRFC(rfc);
 	}
 	
-	public List<ProveedorVO> getAllProveedor(){
+	public List<EmisorVO> getAllProveedor(){
 		LOGGER.info("getAllProveedor()");
 		
 		return
-				(List<ProveedorVO>) proveedorRepository.findAll();
+				(List<EmisorVO>) proveedorRepository.findAll(Sort.by("fcnombre").ascending());
 	}
 	
 }

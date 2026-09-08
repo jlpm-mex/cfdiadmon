@@ -171,3 +171,25 @@ CREATE TABLE `ta_proveedor` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-08-07 10:29:09
+
+
+ALTER TABLE admon_cfdi.ta_cfdi_recibidos MODIFY COLUMN fdtotal DECIMAL(16,6) NULL;
+ALTER TABLE admon_cfdi.ta_items_compra MODIFY COLUMN fdCantidad DECIMAL(16,6) NULL;
+ALTER TABLE admon_cfdi.ta_items_compra MODIFY COLUMN fdPrecioUnitario DECIMAL(16,6) NULL;
+ALTER TABLE admon_cfdi.ta_items_compra ADD fdImporte DECIMAL(16,6) NOT NULL;
+ALTER TABLE admon_cfdi.ta_items_compra ADD fdDescuento decimal(16,6) NULL;
+ALTER TABLE admon_cfdi.ta_pago MODIFY COLUMN fdTotal DECIMAL(16,6) NULL;
+
+ALTER TABLE admon_cfdi.ta_pago_items MODIFY COLUMN fdMonto DECIMAL(16,6) NULL;
+ALTER TABLE admon_cfdi.ta_cfdi_recibidos ADD fcMoneda varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL;
+ALTER TABLE admon_cfdi.ta_pago ADD fcMoneda varchar(20) NULL;
+ALTER TABLE admon_cfdi.ta_proveedor ADD fcRegimenFiscal varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL;
+ALTER TABLE admon_cfdi.ta_cfdi_recibidos ADD fdDescuento DECIMAL(16,6) NULL;
+ALTER TABLE admon_cfdi.ta_cfdi_recibidos ADD fdSubtotal DECIMAL(16,6) NULL;
+ALTER TABLE admon_cfdi.ta_pago ADD fdDescuento DECIMAL(16,6) NULL;
+ALTER TABLE admon_cfdi.ta_pago ADD fdSubtotal DECIMAL(16,6) NULL;
+ALTER TABLE admon_cfdi.ta_items_compra ADD fcNumeroDeIdentificacion varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL;
+
+
+
+

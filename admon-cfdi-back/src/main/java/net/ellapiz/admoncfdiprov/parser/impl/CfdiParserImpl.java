@@ -4,7 +4,10 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -19,12 +22,16 @@ import net.ellapiz.admoncfdiprov.vo.CfdiRecibidoVO;
 import net.ellapiz.admoncfdiprov.vo.CfdiRelacionadoVO;
 import net.ellapiz.admoncfdiprov.vo.CfdiRelacionadosVO;
 import net.ellapiz.admoncfdiprov.vo.ComprobanteVO;
+import net.ellapiz.admoncfdiprov.vo.DoctoRelacionadoVO;
 import net.ellapiz.admoncfdiprov.vo.EmisorVO;
+import net.ellapiz.admoncfdiprov.vo.ImpuestosVO;
 import net.ellapiz.admoncfdiprov.vo.ItemVO;
 import net.ellapiz.admoncfdiprov.vo.PagoItemVO;
 import net.ellapiz.admoncfdiprov.vo.PagoVO;
 import net.ellapiz.admoncfdiprov.vo.ReceptorVO;
+import net.ellapiz.admoncfdiprov.vo.RetencionVO;
 import net.ellapiz.admoncfdiprov.vo.TimbreVO;
+import net.ellapiz.admoncfdiprov.vo.TrasladoVO;
 import net.ellapiz.cfdi40.CTipoDeComprobante;
 import net.ellapiz.cfdi40.Comprobante;
 import net.ellapiz.cfdi40.Comprobante.CfdiRelacionados;
@@ -36,6 +43,9 @@ import net.ellapiz.cfdi40.common.CFDI40Commons;
 import net.ellapiz.cfdi40.comp_pago.Pagos;
 import net.ellapiz.cfdi40.comp_pago.Pagos.Pago;
 import net.ellapiz.cfdi40.comp_pago.Pagos.Pago.DoctoRelacionado;
+import net.ellapiz.cfdi40.comp_pago.Pagos.Pago.DoctoRelacionado.ImpuestosDR;
+import net.ellapiz.cfdi40.comp_pago.Pagos.Pago.DoctoRelacionado.ImpuestosDR.RetencionesDR;
+import net.ellapiz.cfdi40.comp_pago.Pagos.Pago.DoctoRelacionado.ImpuestosDR.TrasladosDR;
 import net.ellapiz.cfdi40.tfd11.TimbreFiscalDigital;
 
 
@@ -233,6 +243,7 @@ public class CfdiParserImpl implements CfdiParser {
 			try {
 				PagoItemVO pagoItemVO = new PagoItemVO();
 				Pagos pagos = ((Pagos) obj);
+				
 				for(Pago pago : pagos.getPago()) {
 					pagoItemVO.setFcFormaDePagoP(pago.getFormaDePagoP());
 					XMLGregorianCalendar calendar = pago.getFechaPago();
@@ -240,17 +251,70 @@ public class CfdiParserImpl implements CfdiParser {
 							.toZonedDateTime().toLocalDateTime();
 					pagoItemVO.setFdFechaPago(date);
 					pagoItemVO.setFdMonto(pago.getMonto());
-					
+					List<DoctoRelacionadoVO> documentosRelacionados = new ArrayList<>();
 					for(DoctoRelacionado doctoRelacionado : pago.getDoctoRelacionado()) {
-						pagoItemVO.setFcFolio(doctoRelacionado.getFolio());
-						pagoItemVO.setFcSerie(doctoRelacionado.getSerie());
-						pagoItemVO.setFcUuid(doctoRelacionado.getIdDocumento());
+//						pagoItemVO.setFcFolio(doctoRelacionado.getFolio());
+//						pagoItemVO.setFcSerie(doctoRelacionado.getSerie());
+//						pagoItemVO.setFcUuid(doctoRelacionado.getIdDocumento());
+						DoctoRelacionadoVO documentoRelacionadoVO = 
+								new DoctoRelacionadoVO();
+						documentoRelacionadoVO.setIdDocumento(doctoRelacionado.getIdDocumento());
+						documentoRelacionadoVO.setFolio(doctoRelacionado.getFolio());
+						documentoRelacionadoVO.setEquivalenciaDR(doctoRelacionado.getEquivalenciaDR());
+						documentoRelacionadoVO.setImpPagado(doctoRelacionado.getImpPagado());
+						documentoRelacionadoVO.setImpSaldoAnt(doctoRelacionado.getImpSaldoAnt());
+						documentoRelacionadoVO.setImpSaldoInsoluto(doctoRelacionado.getImpSaldoInsoluto());
+						
+						List<RetencionVO> retenciones = Optional.ofNullable(doctoRelacionado.getImpuestosDR())
+						        .map(ImpuestosDR::getRetencionesDR)
+						        .map(RetencionesDR::getRetencionDR)
+						        .orElseGet(Collections::emptyList)
+						        .stream()
+						        .map(r -> {
+						            RetencionVO retencionVO = new RetencionVO();
+						            retencionVO.setBase(r.getBaseDR());
+						            retencionVO.setImporte(r.getImporteDR());
+						            retencionVO.setImpuesto(r.getImpuestoDR());
+						            retencionVO.setTasaOCuota(r.getTasaOCuotaDR());
+						            if (r.getTipoFactorDR() != null) {
+						                retencionVO.setTipoFactor(r.getTipoFactorDR().name());
+						            }
+						            return retencionVO;
+						        })
+						        .collect(Collectors.toList());
+						
+						List<TrasladoVO> traslados =  Optional.ofNullable(doctoRelacionado.getImpuestosDR())
+								.map(ImpuestosDR::getTrasladosDR)
+								.map(TrasladosDR::getTrasladoDR)
+								.orElseGet(Collections::emptyList)					
+								.stream().map(t -> {
+								TrasladoVO trasladoVO = new TrasladoVO();
+								trasladoVO.setBase(t.getBaseDR());
+								trasladoVO.setImporte(t.getImporteDR());
+								trasladoVO.setImpuesto(t.getImpuestoDR());
+								trasladoVO.setTasaOCuota(t.getTasaOCuotaDR());
+								trasladoVO.setTipoFactor(t.getTipoFactorDR().name());
+								
+								return trasladoVO;
+							}).collect(Collectors.toList());
+						
+						ImpuestosVO impuestosVO = new ImpuestosVO();
+						impuestosVO.setRetenciones(retenciones);
+						impuestosVO.setTraslados(traslados);
+
+						documentoRelacionadoVO.setImpuestosDR(impuestosVO);
+						documentoRelacionadoVO.setMonedaDR(doctoRelacionado.getMonedaDR().name());
+						documentoRelacionadoVO.setNumParcialidad(doctoRelacionado.getNumParcialidad());
+						documentoRelacionadoVO.setObjetoImpDR(doctoRelacionado.getObjetoImpDR());
+						documentoRelacionadoVO.setSerie(doctoRelacionado.getSerie());
+						documentosRelacionados.add(documentoRelacionadoVO);
 					}
-					
+					pagoItemVO.setDoctosRelacionados(documentosRelacionados);
 					pagoItemVO.setPagoVO(pagoVO);
 					pagoList.add(pagoItemVO);
 					pagoVO.setPagos(pagoList);
 					pagoVO.setFdTotal(cfdi.getTotal());
+					pagoVO.setMontoTotalPagos(pagos.getTotales().getMontoTotalPagos());
 				}
 				
 			}catch(ClassCastException cce) {

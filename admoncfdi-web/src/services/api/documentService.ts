@@ -86,7 +86,7 @@ export const findDocumentsByDate = async (
     size: number = 10
 ): Promise<{ data: FindCfdiProvResponseTO; status: number }> => {
     const strategy = SearchStrategyFactory.create(tipoDeBuscador);
-
+    console.log(strategy.getEndpoint);
     const { data, status } = await axios.get<FindCfdiProvResponseTO>(strategy.getEndpoint(), {
         params: {
             startDate: dateToString(startDate),
@@ -95,5 +95,6 @@ export const findDocumentsByDate = async (
             size,
         },
     });
+    console.log('data'+data);
     return { data, status };
 };

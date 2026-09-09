@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import net.ellapiz.admoncfdiprov.vo.CfdiRecibidoVO;
 import net.ellapiz.admoncfdiprov.vo.ComprobanteVO;
+import net.ellapiz.admoncfdiprov.vo.DoctoRelacionadoVO;
 import net.ellapiz.admoncfdiprov.vo.EmisorVO;
 import net.ellapiz.admoncfdiprov.vo.ImpuestosVO;
 import net.ellapiz.admoncfdiprov.vo.ItemVO;
@@ -708,12 +710,11 @@ public class CfdiPdfGenerator {
                 cs.endText();
                 x += colWidths[2];
 
-                // Documento relacionado (primer UUID si existe)
                 String documento = "";
-                //if (pagoItem.getCfdiRelacionadoList() != null && !pagoItem.getCfdiRelacionadoList().isEmpty()) {
-                if (pagoItem.getFcUuid().compareTo("") != 0) {
-                    String uuid = pagoItem.getFcUuid();
-                    documento = uuid;
+                if (pagoItem.getDoctosRelacionados() != null && !pagoItem.getDoctosRelacionados().isEmpty()) {
+                	documento = pagoItem.getDoctosRelacionados().stream()
+                	.map(DoctoRelacionadoVO::getIdDocumento)
+                	.collect(Collectors.joining(","));
                 }
                 cs.beginText();
                 cs.newLineAtOffset(x, y);

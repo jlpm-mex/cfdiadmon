@@ -47,14 +47,14 @@ Managing high volumes of CFDI files is often error-prone and tedious for account
 ### Main Dashboard (Ingestion & Processing)
 *Drag-and-drop ingestion, pending file inspection, and batch execution status.*
 
-![Main Screen](./Pantalla_Principal.png)
+![Main Screen](./Pantalla_Principal.gif)
 
 <br/>
 
 ### Document Search & Filter Explorer
 *Multi-criteria querying (by issue date, processing date, and supplier/RFC) with instant data grid views.*
 
-![Search Screen](./Pantalla_Busqueda.png)
+![Search Screen](./Pantalla_Busqueda.gif)
 
 </div>
 
